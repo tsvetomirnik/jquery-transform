@@ -1,5 +1,7 @@
 # jquery-transform
 
+It's working with **inline styles only**.
+
 ## Motivation
 
 To be able to read and update the values of the transformation functions.
