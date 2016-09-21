@@ -19,3 +19,23 @@ $.transform method returns the actual function parameters.
 ``` js
   $('.box').transform('scale'); // ["1", "2"]
 ```
+
+## Usage
+
+Get the parameters of a transformation function:
+``` js
+  $('.box').transform('rotate'); // ["35deg"]
+  $('.box').transform('scale'); // ["1", "2"]
+```
+
+Update the parameters of a transformation function:
+``` js
+  $('.box').transform('rotate', '35deg');
+  $('.box').transform('scale', [1, 2]);
+```
+
+Remove a transformation function:
+``` js
+  $('.box').transform('rotate', null);
+```
+
