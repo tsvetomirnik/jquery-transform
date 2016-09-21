@@ -17,7 +17,7 @@
   }
 
   function getTransform ($element) {
-     var transformString = getStyles($element).transform.replace(' ', '').replace(')', ') ').trim(),
+     var transformString = getStyles($element).transform.replace(/\s/g, '').replace(/\)/g, ') ').trim(),
       transformFunctions = transformString.split(' '),
       value = {};
 
@@ -35,14 +35,18 @@
     return getTransform($element)[functionName];
   }
 
-  function setTransformFunction ($element, functionName, values) {
+  function setTransformFunction ($element, functionName, value) {
     var transform = getTransform($element),
       transformString = '',
       transformFunc;
 
-    if (values) {
+    if (!Array.isArray(value)) {
+      value = [value];
+    }
+
+    if (value) {
       // Add or Update
-      transform[functionName] = values;
+      transform[functionName] = value;
     } else {
       // Delete
       delete transform[functionName];
@@ -58,12 +62,12 @@
   }
 
   // Export
-  $.fn.transform = function (functionName, values){
+  $.fn.transform = function (functionName, value){
     var $element = $(this);
     if (arguments.length === 1) {
       return getTransformFunction($element, functionName);
     } else {
-      return setTransformFunction($element, functionName, values);
+      return setTransformFunction($element, functionName, value);
     }
   };
 
