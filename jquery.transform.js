@@ -2,7 +2,7 @@
   'use strict';
 
   function getStyles ($element) {
-    var styles = [];
+    var styles = {};
 
     $element.attr('style').split(';').forEach(function (style) {
       if (style) {
@@ -17,9 +17,15 @@
   }
 
   function getTransform ($element) {
-     var transformString = getStyles($element).transform.replace(/\s/g, '').replace(/\)/g, ') ').trim(),
-      transformFunctions = transformString.split(' '),
-      value = {};
+    var elementStyles = getStyles($element),
+      value = {},
+      transformFunctions = [];
+
+    if (!elementStyles.transform) {
+      return {};
+    }
+
+    transformFunctions = (elementStyles.transform.replace(/\s/g, '').replace(/\)/g, ') ').trim()).split(' '),
 
     transformFunctions.forEach(function (functionString) {
       var functionParts = functionString.match(/^\s*(\w+)\s*\((.*)\)/),
