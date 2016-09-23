@@ -2,9 +2,14 @@
   'use strict';
 
   function getStyles ($element) {
-    var styles = {};
+    var stylesString = $element.attr('style'),
+      styles = {};
 
-    $element.attr('style').split(';').forEach(function (style) {
+    if (!stylesString) {
+      return {};
+    }
+
+    stylesString.split(';').forEach(function (style) {
       if (style) {
          var styleParts = style.split(':'),
           propName = styleParts[0].trim(),
@@ -73,7 +78,8 @@
     if (arguments.length === 1) {
       return getTransformFunction($element, functionName);
     } else {
-      return setTransformFunction($element, functionName, value);
+      setTransformFunction($element, functionName, value);
+      return $element;
     }
   };
 
